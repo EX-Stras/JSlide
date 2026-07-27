@@ -6,7 +6,7 @@
   "scripts": {
     "build": "webpack --config webpack.config.cjs --mode production",
     "dev": "webpack --config webpack.config.cjs --mode development --watch",
-    "fix": "eslint js/Animacoes/** --fix"
+    "fix": "eslint js/modulos/** --fix"
   },
   "keywords": [],
   "type": "module",
