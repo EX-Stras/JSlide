@@ -6,6 +6,11 @@ export default class Slide {
     this.$2 = [];
   }
 
+  transition(boolean) {
+    if (boolean) this.selector1.classList.add('has-transition');
+    else this.selector1.classList.remove('has-transition');
+  }
+
   addEvents() {
     this.selector2.addEventListener('mousedown', this.handleDown);
     this.selector2.addEventListener('touchstart', this.handleDown);
@@ -13,8 +18,8 @@ export default class Slide {
     return this;
   }
 
-  moveSlide() {
-    this.selector1.setAttribute('style', `transform: translate3d(${(this.$.finalPosition + this.$.movement) * -1}px, 0, 0)`);
+  moveSlide(move) {
+    this.selector1.setAttribute('style', `transform: translate3d(${move * -1}px, 0, 0)`);
 
     return this;
   }
@@ -31,19 +36,32 @@ export default class Slide {
     window.removeEventListener(type[1], this.handleUp);
 
     this.$.finalPosition += this.$.movement;
+    this.transition(true);
+    this.changeSlideOnEnd();
 
     return this;
+  }
+
+  changeSlideOnEnd() {
+    if (this.$.movement > 120 && this.index.next !== undefined) {
+      this.activeNextSlide();
+    } else if (this.$.movement < -120 && this.index.prev !== undefined) {
+      this.activePrevSlide();
+    } else {
+      this.changeSlide(this.index.active);
+    }
   }
 
   handleMove(event) {
     const type = (event.type === 'mousemove') ? event.clientX : event.changedTouches[0].clientX;
     this.updatePosition(type);
-    this.moveSlide();
+    this.moveSlide(this.$.finalPosition + this.$.movement);
 
     return this;
   }
 
   handleDown(event) {
+    this.transition(false);
     if (event.type === 'mousedown') {
       event.preventDefault();
       this.$.startX = event.clientX;
@@ -78,11 +96,17 @@ export default class Slide {
     });
   }
 
+  activePrevSlide() {
+    if (this.index.prev !== undefined) this.changeSlide(this.index.prev);
+  }
+
+  activeNextSlide() {
+    if (this.index.next !== undefined) this.changeSlide(this.index.next);
+  }
+
   changeSlide(index) {
-    const activeSlide = this.$2[index];
-    console.log(activeSlide);
     this.$.finalPosition = this.$2[index].position;
-    this.moveSlide();
+    this.moveSlide(this.$.finalPosition);
     this.slideIndexNav(index);
   }
 
