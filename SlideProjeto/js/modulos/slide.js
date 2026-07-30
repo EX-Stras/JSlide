@@ -25,7 +25,7 @@ export default class Slide {
   }
 
   updatePosition(x) {
-    this.$.movement = (this.$.startX - x) * 1.6;
+    this.$.movement = this.$.startX - x;
 
     return this;
   }
