@@ -147,5 +147,6 @@ export default class Slide {
       this.slidesConfig();
     }
     return this;
+    console.log('ola');
   }
 }
