@@ -124,6 +124,7 @@ export default class Slide {
       this.bindEvents();
       this.addEvents();
       this.slidesConfig();
+      console.log('ola');
     }
     return this;
   }
