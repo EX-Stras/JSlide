@@ -21,6 +21,8 @@ body {
     height: 100vh;
     display: flex;
     align-items: center;
+    border-top: 10px solid rgba(0, 0, 0, 0.52);
+    border-bottom: 10px solid rgba(0, 0, 0, 0.52);
 }
 
 ul {
@@ -32,10 +34,13 @@ ul {
 img {
     display: block;
     max-width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.52);
 }
 
 .wrapper {
     overflow: hidden;
+    padding: 40px 0 40px 0;
 }
 
 .slide {
@@ -52,4 +57,36 @@ img {
     flex-shrink: 0;
     max-width: 800px;
     margin: 0 20px;
+    opacity: .5;
+    transform: scale(.9);
 }
+
+.next, .prev {
+    animation: leave .3s forwards;
+}
+
+.active {
+    animation: toAppear .3s forwards;
+}
+
+@keyframes leave {
+    0% {
+        opacity: 1;
+        transform: scale(1);
+    } 100% {
+        opacity: .5;
+        transform: scale(.9);
+    }
+}
+
+@keyframes toAppear {
+    0% {
+        opacity: .5;
+        transform: scale(.9);
+    } 100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+

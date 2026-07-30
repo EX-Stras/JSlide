@@ -1,9 +1,27 @@
+import Debounce from './debounce.js';
+
 export default class Slide {
   constructor(selector1, selector2) {
     this.selector1 = document.querySelector(selector1); // slide
     this.selector2 = document.querySelector(selector2); // wrapper
     this.$ = { finalPosition: 0, startX: 0, movement: 0 };
     this.$2 = [];
+  }
+
+  changeClasses() {
+    this.$2.forEach(({ slide }) => slide.removeAttribute('class'));
+    this.addClasses(this.index.prev, 'prev');
+    this.addClasses(this.index.active, 'active');
+    this.addClasses(this.index.next, 'next');
+  }
+
+  addClasses(index, position) {
+    if (index !== undefined) this.$2[index].slide.classList.add(position);
+  }
+
+  onResize() {
+    this.slidesConfig();
+    this.changeSlide(this.index.active);
   }
 
   transition(boolean) {
@@ -14,6 +32,7 @@ export default class Slide {
   addEvents() {
     this.selector2.addEventListener('mousedown', this.handleDown);
     this.selector2.addEventListener('touchstart', this.handleDown);
+    window.addEventListener('resize', this.onResize);
 
     return this;
   }
@@ -80,6 +99,7 @@ export default class Slide {
     this.handleDown = this.handleDown.bind(this);
     this.handleMove = this.handleMove.bind(this);
     this.handleUp = this.handleUp.bind(this);
+    this.onResize = Debounce(this.onResize.bind(this), 200);
 
     return this;
   }
@@ -108,6 +128,7 @@ export default class Slide {
     this.$.finalPosition = this.$2[index].position;
     this.moveSlide(this.$.finalPosition);
     this.slideIndexNav(index);
+    this.changeClasses();
   }
 
   slideIndexNav(index) {
@@ -124,7 +145,6 @@ export default class Slide {
       this.bindEvents();
       this.addEvents();
       this.slidesConfig();
-      console.log('ola');
     }
     return this;
   }
