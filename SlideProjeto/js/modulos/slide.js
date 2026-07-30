@@ -93,7 +93,6 @@ export default class Slide {
       active: index,
       next: (index + 1 > size) ? undefined : index + 1,
     };
-    console.log(this.index);
   }
 
   init() {
