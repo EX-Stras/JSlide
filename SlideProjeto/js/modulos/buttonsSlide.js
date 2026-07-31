@@ -1,6 +1,11 @@
 import Slide from './slide.js';
 
 export default class ButtonSlide extends Slide {
+  changeSlide(index) {
+    super.changeSlide(index);
+    if (this.controls) this.changeControlClasses();
+  }
+
   activeNextSlide() {
     this.transition(true);
     super.activeNextSlide();
@@ -29,6 +34,47 @@ export default class ButtonSlide extends Slide {
 
     this.bindArrowsEvents();
     this.addArrowsEvents();
-    console.log('ola')
+  }
+
+  changeControlClasses() {
+    this.controls.forEach((control) => {
+      control.classList.remove(control.dataset.anime || 'active');
+    });
+    const control = this.controls[this.index.active];
+    control.classList.add(control.dataset.anime || 'active');
+  }
+
+  addControlsEvents() {
+    this.controls.forEach((control, index) => {
+      control.addEventListener('click', () => {
+        this.transition(true);
+        this.changeSlide(index);
+      });
+    });
+  }
+
+  createControls(fatherElement) {
+    return this.$2.map(() => {
+      const button = document.createElement('button');
+      button.classList.add('button-index');
+
+      if (fatherElement) fatherElement.appendChild(button);
+      else document.body.appendChild(button);
+
+      return button;
+    });
+  }
+
+  Controls(create, selector5) {
+    if (selector5) {
+      if (create) { // true or false
+        const father = document.querySelector(selector5); // fatherSelector
+        this.controls = this.createControls(father);
+      } else this.controls = document.querySelectorAll(selector5); // buttonsSelector
+
+      this.addControlsEvents();
+      this.changeControlClasses();
+    }
+    return this;
   }
 }

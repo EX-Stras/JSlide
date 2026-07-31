@@ -105,6 +105,25 @@ button.Bnext, button.Bprev {
     display: flex;
 }
 
+div.custom-controls {
+    grid-area: 1 / 3 / 2 / 4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+div.custom-controls button{
+    padding: 10px;
+    border-radius: 50%;
+    margin: 0 8px;
+    background-color: rgba(0, 0, 0, 0.536);
+    border: 2px solid #E06600;
+}
+
+div.custom-controls button.active {
+    background-color: #E06600;
+}
+
 @keyframes leave {
     0% {
         opacity: 1;
