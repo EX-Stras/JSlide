@@ -1,7 +1,8 @@
-import Slide from './modulos/slide.js';
+import ButtonSlide from './modulos/buttonsSlide.js';
 
 console.clear();
 
-const slide = new Slide('.slide', '.wrapper');
+const slide = new ButtonSlide('.slide', '.wrapper');
 slide.init();
+slide.activeArrows('.Bnext', '.Bprev');
 slide.changeSlide(3);
