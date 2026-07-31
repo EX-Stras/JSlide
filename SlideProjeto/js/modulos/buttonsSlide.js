@@ -29,5 +29,6 @@ export default class ButtonSlide extends Slide {
 
     this.bindArrowsEvents();
     this.addArrowsEvents();
+    console.log('ola')
   }
 }
