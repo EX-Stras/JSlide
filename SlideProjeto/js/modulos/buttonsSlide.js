@@ -22,10 +22,8 @@ export default class ButtonSlide extends Slide {
   }
 
   addArrowsEvents() {
-    ['touchstart', 'click'].forEach((item) => {
-      this.selector3.addEventListener(item, this.activeNextSlide);
-      this.selector4.addEventListener(item, this.activePrevSlide);
-    });
+    this.selector3.addEventListener('click', this.activeNextSlide);
+    this.selector4.addEventListener('click', this.activePrevSlide);
   }
 
   activeArrows(selector3, selector4) {
