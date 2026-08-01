@@ -145,6 +145,7 @@ export default class Slide {
       this.bindEvents();
       this.addEvents();
       this.slidesConfig();
+      this.changeSlide(0);
     }
     return this;
   }
